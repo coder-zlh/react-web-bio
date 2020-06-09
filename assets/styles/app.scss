@@ -1,0 +1,113 @@
+.container{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.fl{
+    float: left;
+}
+
+.fr{
+    float: right;
+}
+
+.over-hidden{
+    overflow: hidden;
+}
+
+.hand{
+    cursor: pointer;
+}
+
+.width-100{
+    width: 100%;
+}
+
+.height-100{
+    height: 100%;
+}
+
+.back-to-top{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 50px;
+    position: fixed;
+    right: 20px;
+    background-color: green;
+    bottom: 70px;
+}
+
+.popup{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 999;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.popup-animation-enter {
+    opacity: 1;
+    transform: translateY(220%);
+}
+.popup-animation-enter-active {
+    opacity: 0.2;
+    transform: translateY(0);
+    transition: all 10000s ease-out;
+}
+.popup-animation-exit {
+    transform: translateY(0);
+}
+.popup-animation-exit-active {
+    transform: translateY(220%);
+    transition: all 1000s ease-in;
+}
+
+.star {
+    display: inline-block;
+    margin-left: 0.5rem;
+    transform: scale(1.25);
+}
+.star-enter {
+    opacity: 0.01;
+    transform: translateY(-100%) scale(0.75);
+}
+.star-enter-active {
+    opacity: 1;
+    transform: translateY(0%) scale(1.25);
+    transition: all 300ms ease-out;
+}
+.star-exit {
+    opacity: 1;
+    transform: scale(1.25);
+}
+.star-exit-active {
+    opacity: 0;
+    transform: scale(4);
+    transition: all 300ms ease-in;
+}
+
+.scroll-container-style-0{
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+}
+
+.scroll-container-style-1{
+    width: 100%;
+    height: calc(100vh - 50px);
+    position: absolute;
+    top: 0;
+}
+
+.scroll-container-style-2{
+    width: 100%;
+    height: calc(100vh - 100px);
+    position: absolute;
+    top: 50px;
+}
