@@ -10,9 +10,10 @@ import store from 'redux/store';
 
 import Routers from './router/Routers';
 
+import LayoutTemplate from './components/common/LayoutTemplate';
+
 /*axios拦截器 start*/
 import {setupAxiosInterceptors} from 'config/axios';
-import LayoutTemplate from './components/common/LayoutTemplate';
 setupAxiosInterceptors(()=>{console.log("login failed")});
 /*axios拦截器 end*/
 

@@ -1,9 +1,14 @@
 import 'styles/home/index.scss'
 
-import React from 'react';
+import React,{useEffect} from 'react';
 import ScroolWrapper from '../common/ScroolWrapper';
 
 export const HomeComponent = (props) => {
+
+    useEffect(() => {
+        props.testApi()
+    }, [])
+
     return(
         <div className="home scroll-container-style-1">
             <ScroolWrapper>

@@ -4,6 +4,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin"); //每次打包�
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');//抽离css，不会压缩
 const OptimizeCssPlugin = require("optimize-css-assets-webpack-plugin");//将抽离出来的css进行压缩
+const UglifyJSWebpackPlugin = require('uglifyjs-webpack-plugin');//压缩js
 
 module.exports={
     mode: 'production',
@@ -48,6 +49,7 @@ module.exports={
     plugins:[
         new CleanWebpackPlugin(),
         new OptimizeCssPlugin(),
+        new UglifyJSWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './assets/template.html',
             filename: path.join(__dirname,'/dist/index.html')
@@ -72,5 +74,16 @@ module.exports={
             images: path.join(__dirname,'./assets/images'),
             styles: path.join(__dirname,'./assets/styles'),
         }
-    }
+    },
+    optimization: { //抽离公共代码
+        splitChunks: {
+          cacheGroups: {
+            commons: {
+              name: 'commons',
+              chunks: 'initial',
+              minChunks: 2
+            }
+          }
+        }
+      }
 }
