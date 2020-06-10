@@ -6,6 +6,8 @@ ul{
     left: 0;
     bottom: 0;
     text-align: center;
+    z-index: 1000;
+    background-color: #fff;
     box-shadow: 0 0 10px 0px #ccc;
     li{
         width: 25%;

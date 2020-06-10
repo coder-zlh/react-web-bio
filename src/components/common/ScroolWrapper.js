@@ -6,6 +6,8 @@ import BScroll from 'better-scroll';
 import { showGoToTop, hideGoToTop, startGoToTop, endGoToTop } from 'action/common/goToTop';
 
 const options={
+    startX: 0,
+    scrollY: true,
     bounce: true,
     scrollbar: {//滚动条
         fade: true,//滚动停止的时候是否渐渐隐去
@@ -13,20 +15,35 @@ const options={
     },
     dbclick:false,
     click: true,
+    probeType: 2
 }
+
+let scrollIns;
 
 function ScroolWrapper(props) {
 
 
     useEffect(()=>{
-        let scrollIns = new BScroll('.scroll-wrapper',options);
-        scrollIns.on("scrollEnd",scrollEndHandler);
-        scrollIns.on('scroll',scrollEndHandler);
+        if(!scrollIns){
+            scrollIns = new BScroll('.scroll-wrapper',options);
+            scrollIns.on("scrollEnd",scrollEndHandler);
+        }else{
+            scrollIns.refresh();
+        }
         return function cancleScroll(){
             scrollIns.destroy();
             props.hideGoToTop();
         }
     },[]);
+
+    useEffect(()=>{
+        if(props.goToTop.back){
+            scrollIns.scrollTo(0,0,1000);
+            scrollIns.refresh();
+            props.hideGoToTop();
+            props.endGoToTop();
+        }
+    },[props.goToTop.back])
 
     function scrollEndHandler(disObj){
         if(disObj.y > -200){
@@ -45,4 +62,11 @@ function ScroolWrapper(props) {
     )
 }
 
-export default connect( state => ({goToTop: state.goToTop}),{showGoToTop, hideGoToTop, startGoToTop, endGoToTop})(memo(ScroolWrapper))
+export default connect( state => ({
+    goToTop: state.goToTop
+}),{
+    showGoToTop,
+    hideGoToTop,
+    startGoToTop,
+    endGoToTop
+})(memo(ScroolWrapper))

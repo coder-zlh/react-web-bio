@@ -1,8 +1,9 @@
 import axios from 'axios';
+import { requestBaseUrl } from 'config/index'
 
 const setupAxiosInterceptors = onUnauthenticated => {
   const onRequestSuccess = config => {
-    // config.baseURL = 'http://60.169.3.110:8091';
+    config.baseURL = requestBaseUrl;
     config.timeout = 10000;
     return config;
   };
