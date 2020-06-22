@@ -8,7 +8,7 @@ import { HashRouter as Router } from 'react-router-dom';
 
 import store from 'redux/store';
 
-import Routers from './router/Routers';
+import RootRouter from './router/RootRouter';
 
 import LayoutTemplate from './components/common/LayoutTemplate';
 
@@ -17,11 +17,11 @@ import {setupAxiosInterceptors} from 'config/axios';
 setupAxiosInterceptors(()=>{console.log("login failed")});
 /*axios拦截器 end*/
 
-renderWithHotReload(Routers);
+renderWithHotReload(RootRouter);
 
 if (module.hot) {
-    module.hot.accept('./router/Routers', () => {
-        const NextApp = require('./router/Routers').default;
+    module.hot.accept('./router/RootRouter', () => {
+        const NextApp = require('./router/RootRouter').default;
         renderWithHotReload(NextApp);
     });
 }
@@ -30,9 +30,7 @@ function renderWithHotReload(RootPage){
     ReactDom.render(
         <Provider store={store}>
             <Router>
-                <LayoutTemplate>
-                    <RootPage/>
-                </LayoutTemplate>
+                <RootPage/>
             </Router>
         </Provider>,
         document.getElementById("root")

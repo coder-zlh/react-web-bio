@@ -15,7 +15,8 @@ const options={
     },
     dbclick:false,
     click: true,
-    probeType: 2
+    probeType: 2,
+    mouseWheel: true
 }
 
 let scrollIns;
@@ -24,17 +25,32 @@ function ScroolWrapper(props) {
 
 
     useEffect(()=>{
+        console.log(scrollIns)
         if(!scrollIns){
             scrollIns = new BScroll('.scroll-wrapper',options);
-            scrollIns.on("scrollEnd",scrollEndHandler);
+            // scrollIns.on("scrollEnd",scrollEndHandler);
         }else{
             scrollIns.refresh();
         }
+        scrollIns.on("scrollEnd",scrollEndHandler);
         return function cancleScroll(){
             scrollIns.destroy();
+            scrollIns = null;
             props.hideGoToTop();
         }
     },[]);
+
+    useEffect(()=>{
+        window.addEventListener('resize',_refreshScrollInstance)
+        return function removeResizeListener(){
+            window.removeEventListener('resize',_refreshScrollInstance);
+        }
+    },[])
+
+    function _refreshScrollInstance(){
+        console.log("resize")
+        scrollIns.refresh();
+    }
 
     useEffect(()=>{
         if(props.goToTop.back){

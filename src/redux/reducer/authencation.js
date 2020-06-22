@@ -3,7 +3,8 @@ import { actions as t } from 'action/authencation';
 console.log(t)
 
 const initState={
-    data: null
+    data: null,
+    logined: true
 }
 
 export default function reducer( state = initState, action ){

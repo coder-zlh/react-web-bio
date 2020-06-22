@@ -5,11 +5,11 @@ import LoadMore from 'components/common/LoadMore'
 export default function HotSellIndexComponent(props) {
 
     useEffect(()=>{
-        props.getCuList()
+        // props.getCuList()
     },[])
 
     return (
-        <div className="hot-index scroll-container-style-1">
+        <div className="hot-index container scroll-container-style-1">
             <LoadMore>
 
             </LoadMore>

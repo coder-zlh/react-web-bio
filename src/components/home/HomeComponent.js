@@ -6,11 +6,11 @@ import ScroolWrapper from '../common/ScroolWrapper';
 export const HomeComponent = (props) => {
 
     useEffect(() => {
-        props.testApi()
+        // props.testApi()
     }, [])
 
     return(
-        <div className="home scroll-container-style-1">
+        <div className="home container scroll-container-style-1">
             <ScroolWrapper>
                 {
                     [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map((item,index)=>{

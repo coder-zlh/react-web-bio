@@ -8,7 +8,7 @@ import LoadMore from '../common/LoadMore';
 export const MyIndexComponent = (props) => {
     const [showPopup, setShowPopup] = useState(false)
     return (
-        <div className="my scroll-container-style-1">
+        <div className="my container scroll-container-style-1">
             <LoadMore isLoadEnd={false} isLoading={true} isFreshed={true} isFreshing={false}>
                 <div style={{height: 30}}><Link to="/my/rpwd">修改密码</Link></div>
                 <div style={{height: 30}}><Link to="/my/rpwd">修改密码</Link></div>

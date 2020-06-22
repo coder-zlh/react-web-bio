@@ -16,6 +16,7 @@ const options={
     dbclick:false,
     click: true,
     probeType: 2,
+    mouseWheel: true,
     pullDownRefresh: {   //下拉刷新设置
         threshold: 90,  //触发下拉刷新的下拉高度
         stop: 40    //触发以后的下拉停留高度
@@ -23,7 +24,7 @@ const options={
     pullUpLoad: {   //下拉加载更多设置
         threshold: 50,
         stop: 40
-      }
+    }
 }
 let scrollIns;
 
@@ -33,12 +34,19 @@ function LoadMore(props) {
     const [pullUpTip, setPullUpTip] = useState("上拉加载更多");
 
     useEffect(()=>{
-        scrollIns = new BScroll('.scroll-wrapper',options);
+        if(!scrollIns){
+            scrollIns = new BScroll('.scroll-wrapper',options);
+        }else{
+            scrollIns.refresh();
+        }
+
         scrollIns.on("scrollEnd",scrollEndHandler);
         scrollIns.on("scroll",pullUpLogic);
         scrollIns.autoPullDownRefresh();
+
         return function cancleScrollIns(){
             scrollIns.destroy();
+            scrollIns = null;
             props.hideGoToTop();
         }
     },[]);
