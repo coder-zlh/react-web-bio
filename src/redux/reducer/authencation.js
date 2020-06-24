@@ -1,7 +1,5 @@
 import { actions as t } from 'action/authencation';
 
-console.log(t)
-
 const initState={
     data: null,
     logined: true

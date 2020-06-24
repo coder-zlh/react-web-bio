@@ -1,7 +1,29 @@
-.container{
+@import './animation.scss';
+html,body,div,p,ul,li,a,img,span{
+    margin: 0;
+    padding: 0;
+}
+
+html,body,#root{
     width: 100%;
     height: 100%;
     overflow: hidden;
+}
+
+body{
+    font-size: 16px;
+}
+
+ul,li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+    color: #999;
+    &:hover,&:active,&:visited,&:link{
+        color: #999;
+    }
 }
 
 .fl{
@@ -29,15 +51,15 @@
 }
 
 .back-to-top{
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     text-align: center;
-    line-height: 50px;
+    line-height: 100px;
     position: fixed;
-    right: 20px;
+    right: 40px;
     background-color: green;
-    bottom: 70px;
+    bottom: 150px;
 }
 
 .popup{
@@ -50,45 +72,10 @@
     background-color: rgba(0,0,0,0.2);
 }
 
-.popup-animation-enter {
-    opacity: 1;
-    transform: translateY(220%);
-}
-.popup-animation-enter-active {
-    opacity: 0.2;
-    transform: translateY(0);
-    transition: all 10000s ease-out;
-}
-.popup-animation-exit {
-    transform: translateY(0);
-}
-.popup-animation-exit-active {
-    transform: translateY(220%);
-    transition: all 1000s ease-in;
-}
-
 .star {
     display: inline-block;
     margin-left: 0.5rem;
     transform: scale(1.25);
-}
-.star-enter {
-    opacity: 0.01;
-    transform: translateY(-100%) scale(0.75);
-}
-.star-enter-active {
-    opacity: 1;
-    transform: translateY(0%) scale(1.25);
-    transition: all 300ms ease-out;
-}
-.star-exit {
-    opacity: 1;
-    transform: scale(1.25);
-}
-.star-exit-active {
-    opacity: 0;
-    transform: scale(4);
-    transition: all 300ms ease-in;
 }
 
 .scroll-container-style-0{
@@ -100,7 +87,7 @@
 
 .scroll-container-style-1{
     width: 100%;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 100px);
     position: absolute;
     top: 0;
 }
@@ -112,24 +99,10 @@
     top: 50px;
 }
 
-.fade-enter {
-    opacity: 0;
-    transform: translateX(100%);
+.scroll-container-style-3{
+    width: 100%;
+    height: calc(100vh - 100px);
+    position: absolute;
+    top: 100px;
 }
 
-.fade-enter-active {
-    opacity: 1;
-    transform: translateX(0);
-    transition: all 500ms;
-}
-
-.fade-exit {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.fade-exit-active {
-    opacity: 0;
-    transform: translateX(-100%);
-    transition: all 500ms;
-}

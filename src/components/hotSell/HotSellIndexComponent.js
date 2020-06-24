@@ -1,6 +1,7 @@
 import React,{ useEffect } from 'react';
 
 import LoadMore from 'components/common/LoadMore'
+import TabBar from 'components/common/TabBar';
 
 export default function HotSellIndexComponent(props) {
 
@@ -13,6 +14,7 @@ export default function HotSellIndexComponent(props) {
             <LoadMore>
 
             </LoadMore>
+            <TabBar/>
         </div>
     )
 }

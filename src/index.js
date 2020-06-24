@@ -1,5 +1,6 @@
-import 'styles/base.scss'
-import 'styles/app.scss'
+import 'styles/app.scss';
+
+import 'lib-flexible';
 
 import React from "react";
 import ReactDom from "react-dom";
@@ -9,8 +10,6 @@ import { HashRouter as Router } from 'react-router-dom';
 import store from 'redux/store';
 
 import RootRouter from './router/RootRouter';
-
-import LayoutTemplate from './components/common/LayoutTemplate';
 
 /*axios拦截器 start*/
 import {setupAxiosInterceptors} from 'config/axios';

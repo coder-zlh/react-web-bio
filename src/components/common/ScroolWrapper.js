@@ -27,13 +27,16 @@ function ScroolWrapper(props) {
     useEffect(()=>{
         console.log(scrollIns)
         if(!scrollIns){
+            console.log("loadmore no")
             scrollIns = new BScroll('.scroll-wrapper',options);
             // scrollIns.on("scrollEnd",scrollEndHandler);
         }else{
+            console.log("loadmore have")
             scrollIns.refresh();
         }
         scrollIns.on("scrollEnd",scrollEndHandler);
         return function cancleScroll(){
+            console.log("cancle scrollwrapper")
             scrollIns.destroy();
             scrollIns = null;
             props.hideGoToTop();
@@ -48,7 +51,6 @@ function ScroolWrapper(props) {
     },[])
 
     function _refreshScrollInstance(){
-        console.log("resize")
         scrollIns.refresh();
     }
 

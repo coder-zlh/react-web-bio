@@ -1,13 +1,17 @@
+import 'styles/my/reset.scss';
+
 import React from 'react';
 import Header from '../common/Header';
 
-export const MyResetPWDComponent = () => {
+import TransitionRouteWrapper from 'components/common/TransitionRouteWrapper'
+
+function MyResetPWDComponent(){
     return (
-        <div className="scroll-container-style-2">
+        <div className="scroll-container-style-3 reset">
             <Header title="修改密码"/>
             reset pwd
         </div>
     )
 }
 
-export default MyResetPWDComponent
+export default TransitionRouteWrapper(MyResetPWDComponent)

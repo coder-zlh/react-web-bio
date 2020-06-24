@@ -1,24 +1,19 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 import { CSSTransition } from 'react-transition-group';
-
 
 import { startGoToTop } from 'action/common/goToTop';
 
 function GoToTop(props) {
-    
-    // if(props.goToTop.show){
-        return (
-            <CSSTransition in={props.goToTop.show} classNames="star" timeout={300}>
-                <div className="back-to-top" onClick={()=>{props.startGoToTop()}} style={props.goToTop.show ? null:{display: 'none'}}>
-                    top
-                </div>
-            </CSSTransition>
-        )
-    // }else{
-    //     return null
-    // }
+    console.log(props.goToTop.show);
+    return (
+        <CSSTransition in={props.goToTop.show} classNames='gototop' timeout={300} mountOnEnter={true} unmountOnExit>
+            <div className="back-to-top" onClick={()=>{props.startGoToTop()}}>
+                top
+            </div>
+        </CSSTransition>
+    )
     
 }
 

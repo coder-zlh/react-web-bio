@@ -39,6 +39,19 @@ module.exports={
                 exclude: /node_modules/
             },
             {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader:MiniCSSExtractPlugin.loader,
+                        options: {
+                            hmr: true,
+                            reloadAll: true
+                        }
+                    },
+                    'css-loader'
+                ],
+            },
+            {
                 test: /\.(png|jpg|gif|jpeg|webp|svg|eot|ttf|woff|woff2)$/,
                 use: [
                     {
@@ -69,6 +82,7 @@ module.exports={
         port: 8080,
         open: true,
         hot: true,
+        host: '192.168.103.68',
         stats: 'errors-only',
         historyApiFallback: true,
         contentBase: path.join(__dirname, '/dist'),

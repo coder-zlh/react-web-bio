@@ -2,10 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello world</title>
 </head>
 <body>
     <div id="root"></div>
+    <script>
+        function setRootElementFontSize(){
+            // 取得屏幕宽度
+            var devicewidth = document.documentElement.clientWidth || document.body.clientWidth;
+            //动态设置 html font-size 值
+            document.getElementsByTagName('html')[0].style.fontSize = devicewidth / 10 + 'px';
+        }
+
+        window.addEventListener('resize',setRootElementFontSize,false);
+
+        setRootElementFontSize();
+    </script>
 </body>
 </html>

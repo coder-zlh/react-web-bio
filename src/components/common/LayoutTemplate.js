@@ -8,7 +8,6 @@ const LayoutTemplate = (props) => {
         <React.Fragment>
             {props.children}
             <GoToTop/>
-            <TabBar/>
         </React.Fragment>
     )
 }
