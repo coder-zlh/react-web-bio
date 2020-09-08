@@ -3,7 +3,7 @@ import 'styles/my/reset.scss';
 import React from 'react';
 import Header from '../common/Header';
 
-import TransitionRouteWrapper from 'components/common/TransitionRouteWrapper'
+import TransitionRouteWrapper from 'components/common/TransitionRouteWrapper';
 
 function MyResetPWDComponent(){
     return (

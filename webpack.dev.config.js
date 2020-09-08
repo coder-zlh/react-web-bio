@@ -79,14 +79,15 @@ module.exports={
     ],
     devServer: {
         compress: true,
-        port: 8080,
+        port: 3000,
         open: true,
         hot: true,
-        host: '192.168.103.68',
+        disableHostCheck: true, //内网穿透可以访问
         stats: 'errors-only',
         historyApiFallback: true,
         contentBase: path.join(__dirname, '/dist'),
-        proxy: {
+        //跨域处理
+        proxy: {    
             '/api': {
               target: 'http://60.169.3.110:8091/',
               pathRewrite: {'^/api' : ''},

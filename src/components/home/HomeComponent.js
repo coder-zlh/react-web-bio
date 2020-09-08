@@ -6,6 +6,7 @@ import { CSSTransition } from 'react-transition-group';
 import ScroolWrapper from '../common/ScroolWrapper';
 import TabBar from 'components/common/TabBar';
 import Popup from '../common/Popup';
+import TransitionRouteWrapper from 'components/common/TransitionRouteWrapper';
 
 export const HomeComponent = (props) => {
     const [ showPopup, setShowPopup ] = useState(false);
@@ -29,4 +30,4 @@ export const HomeComponent = (props) => {
     )
 }
 
-export default HomeComponent
+export default TransitionRouteWrapper(HomeComponent)

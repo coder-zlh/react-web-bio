@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Popup from '../common/Popup';
 import LoadMore from '../common/LoadMore';
 import TabBar from 'components/common/TabBar';
+import TransitionRouteWrapper from 'components/common/TransitionRouteWrapper';
 
 export const MyIndexComponent = (props) => {
     const [showPopup, setShowPopup] = useState(false)
@@ -52,4 +53,4 @@ export const MyIndexComponent = (props) => {
     )
 }
 
-export default MyIndexComponent
+export default TransitionRouteWrapper(MyIndexComponent)
