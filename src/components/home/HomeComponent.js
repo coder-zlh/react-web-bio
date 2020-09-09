@@ -20,11 +20,10 @@ export const HomeComponent = (props) => {
                         return <div className="list-item" key={item} style={index % 2 === 0 ? {backgroundColor: 'red'}:null} onClick={()=>{console.log(index+1);setShowPopup(!showPopup)}}>{item}</div>
                     })
                 }
-                
             </ScroolWrapper>
             <TabBar/>
             <Popup isShow={showPopup} onClose={()=>{console.log("close",showPopup);setShowPopup(false)}}>
-                <div style={{width:400,height:400,backgroundColor: 'green',position: 'absolute',left: "50%",top: '50%',marginLeft: -200,marginTop: -200}}>hello world</div>
+                <div style={{width:200,height:200,backgroundColor: 'green',position: 'absolute',left: "50%",top: '50%',marginLeft: -100,marginTop: -100}}>hello world</div>
             </Popup>
         </div>
     )

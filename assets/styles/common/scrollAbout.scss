@@ -1,18 +1,22 @@
 .scroll-wrapper{
-    .pull-tip{
-        width: 100vw;
-        height: 40px;
-        line-height: 40px;
-        text-align: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .pull-up{
         position: absolute;
-        left: 0;
+        left:0; right:0;
+        bottom: 5px;
+        width: 60px;
+        height: 60px;
+        margin: auto;
+        z-index: 100;
     }
-    .pull-down-tip{
-        bottom: 100%;
-    }
-    .pull-up-tip{
+    .pull-down{
+        position: absolute;
+        left:0; right:0;
+        top: 0px;
         height: 30px;
-        line-height: 30px;
-        text-align: center;
+        margin: auto;
+        z-index: 100;
     }
 }

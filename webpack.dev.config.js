@@ -106,6 +106,7 @@ module.exports={
             pages: path.join(__dirname,'/src/pages'),
             components: path.join(__dirname,'/src/components'),
             src: path.join(__dirname,'./src'),
+            utils: path.join(__dirname,'./utils'),
             action: path.join(__dirname,'/src/redux/action'),
             reducer: path.join(__dirname,'/src/redux/reducer'),
             config: path.join(__dirname,'/src/config'),

@@ -1,84 +1,143 @@
-import React,{ useEffect, memo } from 'react';
-import { connect } from 'react-redux'
+import 'styles/common/scrollAbout.scss';
 
-import BScroll from 'better-scroll';
+import React, { forwardRef, useState,useEffect, useRef, useImperativeHandle, useMemo, memo } from "react";
+import PropTypes from "prop-types";
+import { connect } from 'react-redux';
+import BScroll from "better-scroll";
 
 import { showGoToTop, hideGoToTop, startGoToTop, endGoToTop } from 'action/common/goToTop';
+import { debounce } from "../../utils/index";
+import PullUpLoading from 'components/common/PullUpLoading';
+import PullDownLoading from 'components/common/PullDownLoading';
 
-const options={
-    startX: 0,
-    scrollY: true,
-    bounce: true,
-    scrollbar: {//滚动条
-        fade: true,//滚动停止的时候是否渐渐隐去
-        interactive: true // 可否交互（拉滚动条）
+const ScroolWrapper = forwardRef((props, ref) => {
+  const [bScroll, setBScroll] = useState();
+
+  const scrollContaninerRef = useRef();
+
+  const { direction, click, refresh, pullUpLoading, pullDownLoading, bounceTop, bounceBottom } = props;
+
+  const { pullUp, pullDown, onScroll } = props;
+
+  let pullUpDebounce = useMemo(() => {
+    return debounce(pullUp, 500)
+  }, [pullUp]);
+
+  let pullDownDebounce = useMemo(() => {
+    return debounce(pullDown, 500)
+  }, [pullDown]);
+
+  useEffect(() => {
+    const scroll = new BScroll(scrollContaninerRef.current, {
+      scrollX: direction === "horizental",
+      scrollY: direction === "vertical",
+      probeType: 3,
+      click: click,
+      bounce:{
+        top: bounceTop,
+        bottom: bounceBottom
+      }
+    });
+    setBScroll(scroll);
+    return () => {
+      setBScroll(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    if(!bScroll || !onScroll) return;
+    bScroll.on('scroll', onScroll)
+    return () => {
+      bScroll.off('scroll', onScroll);
+    }
+  }, [onScroll, bScroll]);
+
+  useEffect(() => {
+    if(!bScroll || !pullUp) return;
+    const handlePullUp = () => {
+      //判断是否滑动到了底部
+      if(bScroll.y <= bScroll.maxScrollY + 100){
+        pullUpDebounce();
+      }
+    };
+    bScroll.on('scrollEnd', handlePullUp);
+    return () => {
+      bScroll.off('scrollEnd', handlePullUp);
+    }
+  }, [pullUp, pullUpDebounce, bScroll]);
+
+  useEffect(() => {
+    if(!bScroll || !pullDown) return;
+    const handlePullDown = (pos) => {
+      //判断用户的下拉动作
+      if(pos.y > 50) {
+        pullDownDebounce();
+      }
+    };
+    bScroll.on('touchEnd', handlePullDown);
+    return () => {
+      bScroll.off('touchEnd', handlePullDown);
+    }
+  }, [pullDown, pullDownDebounce, bScroll]);
+
+
+  useEffect(() => {
+    if(refresh && bScroll){
+      bScroll.refresh();
+    }
+  });
+
+  useImperativeHandle(ref, () => ({
+    refresh() {
+      if(bScroll) {
+        bScroll.refresh();
+        bScroll.scrollTo(0, 0);
+      }
     },
-    dbclick:false,
-    click: true,
-    probeType: 2,
-    mouseWheel: true
-}
-
-let scrollIns;
-
-function ScroolWrapper(props) {
-
-
-    useEffect(()=>{
-        console.log(scrollIns)
-        if(!scrollIns){
-            console.log("loadmore no")
-            scrollIns = new BScroll('.scroll-wrapper',options);
-            // scrollIns.on("scrollEnd",scrollEndHandler);
-        }else{
-            console.log("loadmore have")
-            scrollIns.refresh();
-        }
-        scrollIns.on("scrollEnd",scrollEndHandler);
-        return function cancleScroll(){
-            console.log("cancle scrollwrapper")
-            scrollIns.destroy();
-            scrollIns = null;
-            props.hideGoToTop();
-        }
-    },[]);
-
-    useEffect(()=>{
-        window.addEventListener('resize',_refreshScrollInstance)
-        return function removeResizeListener(){
-            window.removeEventListener('resize',_refreshScrollInstance);
-        }
-    },[])
-
-    function _refreshScrollInstance(){
-        scrollIns.refresh();
+    getBScroll() {
+      if(bScroll) {
+        return bScroll;
+      }
     }
+  }));
 
-    useEffect(()=>{
-        if(props.goToTop.back){
-            scrollIns.scrollTo(0,0,1000);
-            scrollIns.refresh();
-            props.hideGoToTop();
-            props.endGoToTop();
-        }
-    },[props.goToTop.back])
+  const PullUpdisplayStyle = pullUpLoading ? { display: "" } : { display: "none" };
+  const PullDowndisplayStyle = pullDownLoading ? { display: "" } : { display: "none" };
+  return (
+    <div className="scroll-wrapper" ref={scrollContaninerRef}>
+      {props.children}
+      {/* 滑到底部加载动画 */}
+      <div className="pull-up" style={ PullUpdisplayStyle }><PullUpLoading></PullUpLoading></div>
+      {/* 顶部下拉刷新动画 */}
+      <div className="pull-down" style={ PullDowndisplayStyle }><PullDownLoading></PullDownLoading></div>
+    </div>
+  );
+})
 
-    function scrollEndHandler(disObj){
-        if(disObj.y > -200){
-            props.hideGoToTop()
-        }else if( !props.goToTop.show){
-            props.showGoToTop();
-        }
-    }
+ScroolWrapper.defaultProps = {
+  direction: "vertical",
+  click: true,
+  refresh: true,
+  onScroll:null,
+  pullUpLoading: false,
+  pullDownLoading: false,
+  pullUp: null,
+  pullDown: null,
+  bounceTop: true,
+  bounceBottom: true
+};
 
-    return (
-        <div className="scroll-wrapper height-100 over-hidden">
-            <div>
-                {props.children}
-            </div>
-        </div>
-    )
-}
+ScroolWrapper.propTypes = {
+  direction: PropTypes.oneOf(['vertical', 'horizental']),
+  refresh: PropTypes.bool,
+  onScroll: PropTypes.func,
+  pullUp: PropTypes.func,
+  pullDown: PropTypes.func,
+  pullUpLoading: PropTypes.bool,
+  pullDownLoading: PropTypes.bool,
+  bounceTop: PropTypes.bool,//是否支持向上吸顶
+  bounceBottom: PropTypes.bool//是否支持向下吸顶
+};
 
 export default connect( state => ({
     goToTop: state.goToTop
