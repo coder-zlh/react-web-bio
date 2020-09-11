@@ -5,24 +5,25 @@ import React,{ Suspense } from "react";
 import ReactDom from "react-dom";
 import { Provider } from 'react-redux';
 import { HashRouter as Router } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 
 import store from 'redux/store';
 
-import RootRouter from './router/RootRouter';
+import Routes from './router/Routes';
 import Loading from 'components/common/Loading';
 
 /*axios拦截器 start*/
 import {setupAxiosInterceptors} from 'config/axios';
-setupAxiosInterceptors(()=>{console.log("login failed")});
+setupAxiosInterceptors(()=>{console.log(this.props)});
 /*axios拦截器 end*/
 
 // 初始化开始
-renderWithHotReload(RootRouter);
+renderWithHotReload(Routes);
 
 // 模块热更新
 if (module.hot) {
-    module.hot.accept('./router/RootRouter', () => {
-        const NextApp = require('./router/RootRouter').default;
+    module.hot.accept('./router/Routes', () => {
+        const NextApp = require('./router/Routes').default;
         renderWithHotReload(NextApp);
     });
 }
@@ -32,7 +33,7 @@ function renderWithHotReload(RootPage){
         <Provider store={store}>
             <Router>
                 <Suspense fallback={<Loading/>}>
-                    <RootPage/>
+                    {renderRoutes(RootPage)}
                 </Suspense>
             </Router>
         </Provider>,

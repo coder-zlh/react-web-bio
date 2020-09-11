@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { memo } from 'react'
 
-export default function NotFound() {
+function NotFound() {
     return (
         <div style={{backgroundColor: 'gray',textAlign: 'center', width: '100%', height: '100%'}}>
             404 页面
         </div>
     )
 }
+
+export default memo(NotFound);
