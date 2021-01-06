@@ -42,7 +42,7 @@
   "dependencies": {
     "@loadable/component": "^5.13.1",
     "animate.css": "^4.1.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "better-scroll": "^1.15.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
